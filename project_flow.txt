@@ -1,0 +1,27 @@
+This project focuses on building a data lake in GCP in the retail domain. The goal is to centralise,
+clean and transform data from multiple sources, enablinh retail industry for staying competetive and unlocking
+valuable insights for business growth.
+We take data from sources 1) Retailer DB 2) Supplier DB 3) API. The database are in MySQL instance.
+Retailer DB contains products, customer and orders relaited details.
+Supllier DB contains supplier related information like supplier and product supllier.
+API reviews- It captures customer feedback from external sources.
+There is a config file which tells about the active tables should be processed only and contains the metadata relaited to tables.
+Data is extracted from MySQL. Extracted data is landed into GCS under separate folder for easy organisation.
+Retailer DB in retail folder.
+Supplier DB In supplier folder.
+Customer Reviews data in Reviews folder.
+Data processing is done in Dataproc using Pyspark. Data is collected from MySQL and loaded into the GCS.
+The old files get archeived when a new file comes from MySQL.
+We have created pipeline logs for pipeline monitoring and used try-except block for error handling.
+The logs are stored in bigquery as well as GCS for later analysis. We have maintained the audit logs in bigquery about the
+tables, their load_type, records count, status.
+We follow the Medallian architecture in Bigquery. The data is processed through 3 layers.
+1)Bronze- Raw data is ingested from GCS as it is no changes of data
+2)Silver- Data is cleaned and transformed by handling null values, loading incremental data, updated data.
+3)Gold- Final business ready tables are used for analytics and reporting.
+Here we have done advanced level transformation like joins, group by, finding avg, max, min.
+After that looker BI team create reports and charts from the final ready data.
+We have automated the project using Apache Airflow. We created the DAGs for extraction, transformation and loading.
+It ensures scheduling, monitoring and pipeline orchestration.
+This is our end-to-end project where we focus on building a data lake for centralized data access.
+Handles large volumes of data seamlessly without performance issue.  
